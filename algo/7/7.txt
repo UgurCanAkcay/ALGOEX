@@ -1,0 +1,24 @@
+import csv
+from csv import writer
+
+#C:\Users\PC\Documents\python\algocsv\algocsv.csv
+
+Nw1=[]
+Nw2=[98, 'Sevgi', 'Kadin', 'Oslo', 41, 'Sporcu']
+with open('algocsv.csv', 'a', newline='') as f_object:
+    writer_object = csv.writer(f_object)
+    writer_object.writerow(Nw1)
+    writer_object.writerow(Nw2)
+    f_object.close()
+   
+with open('algocsv.csv', 'r') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+with open('algocsv.csv', 'r') as file:
+    reader = csv.reader(file)
+    gender = input('Gender girin: ')
+    for row in reader:
+        if row[2] == gender: #if gender in row[2]:
+            print(row)

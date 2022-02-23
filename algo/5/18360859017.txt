@@ -1,0 +1,92 @@
+def split(matrix):
+    row, col = matrix.shape
+    row2, col2 = row//2, col//2
+    return matrix[:row2, :col2], matrix[:row2, col2:], matrix[row2:, :col2], matrix[row2:, col2:]
+ 
+def strassen(x, y):
+
+    if len(x) == 1:
+        return x * y
+ 
+    a, b, c, d = split(x)
+    e, f, g, h = split(y)
+ 
+    p1 = strassen(a, f - h) 
+    p2 = strassen(a + b, h)       
+    p3 = strassen(c + d, e)       
+    p4 = strassen(d, g - e)       
+    p5 = strassen(a + d, e + h)       
+    p6 = strassen(b - d, g + h) 
+    p7 = strassen(a - c, e + f) 
+
+    c11 = p5 + p4 - p2 + p6 
+    c12 = p1 + p2          
+    c21 = p3 + p4           
+    c22 = p1 + p5 - p3 - p7 
+
+    c = np.vstack((np.hstack((c11, c12)), np.hstack((c21, c22))))
+ 
+    return c
+
+----------------
+Example 2 and 3
+
+#include <stdio.h>
+  
+  void swap(int *a, int *b) {
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+  }
+  
+  void HeapEkle(int arr[], int n, int i) {
+    int max = i; //max olarak basla
+    int leftindex = 2 * i + 1;
+    int rightindex = 2 * i + 2;
+  
+    //eger sol index maksimumdan büyükse
+    if (leftindex < n && arr[leftindex] > arr[max])
+      max = leftindex;
+  
+    //eger sag index maksimumdan büyükse
+    if (rightindex < n && arr[rightindex] > arr[max])
+      max = rightindex;
+  
+    if (max != i) {
+      swap(&arr[i], &arr[max]);
+      //HeapEkle 4sub-tree recursive
+      HeapEkle(arr, n, max);
+    }
+  }
+//3 cevap
+  //Yigin sirilamasi gerceklestirme icin donduren fonksiyon
+  int Heap2Array(int arr[], int n) {
+    for (int i = n / 2 - 1; i >= 0; i--)
+      HeapEkle(arr, n, i);
+
+    for (int i = n - 1; i >= 0; i--) {
+      swap(&arr[0], &arr[i]); 
+  //kok sona tasindi
+      HeapEkle(arr, i, 0); 
+    }
+  }
+
+  void HeapAl(int arr[], int n) {
+    for (int i = 0; i < n; ++i)
+      printf("%d ", arr[i]);
+    printf("\n");
+  }
+
+  int main() {
+    int arr[] = {24, 32, 99, 9, 999, 910};
+    int n = sizeof(arr) / sizeof(arr[0]);
+	
+    printf("Orjinal dizi: \n");
+    HeapAl(arr, n);
+    Heap2Array(arr, n);
+  
+    printf("Siralanmis dizi: \n");
+    HeapAl(arr, n);
+  }
+
+ 

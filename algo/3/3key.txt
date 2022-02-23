@@ -1,0 +1,119 @@
+Soru1#
+
+#include <stdio.h>
+
+#include <math.h>
+
+#include <conio.h>
+
+
+
+main(void)
+
+{
+
+ int sayi,i=0,top=0;
+
+ printf(" Bir sayi giriniz \n");
+
+ scanf("%d",&sayi);
+
+ while(sayi>=2)
+
+ {
+
+ top=top+(sayi%2)*pow(10,i);
+
+ sayi=sayi/2;
+
+ i++;
+
+ }
+
+top=top+sayi*pow(10,i);
+
+printf("binary (ikilik) degeri:  %d",top);
+
+getch();
+
+}
+
+#Soru2
+
+#include <stdio.h>
+
+#include <conio.h>
+
+main()
+
+{
+
+int sayi=8,adet=4;
+
+for(sayi=8;sayi<=100;sayi++)
+
+{
+
+ if((sayi%2)!=0)
+
+ {
+
+ if((sayi%3)!=0)
+
+ {
+
+ if((sayi%5)!=0)
+
+ {
+
+ if((sayi%7)!=0)
+
+ adet++;
+
+ }
+
+ }
+
+ }
+
+}
+
+printf("adet= %d",adet);
+
+getch();
+
+
+}
+
+#Soru3
+
+#include <stdio.h>
+
+#include <conio.h>
+
+main()
+
+{
+
+ int x,n,t=1,f=1,i=1;
+
+ printf("Sirasiyla x ve n degeri giriniz: ");
+
+ scanf("%d%d",&x,&n);
+
+ for(i=1;i<=n+1;i++)
+
+ {
+
+ f=f*i;
+
+ t=t+(x^i)/f;
+
+ }
+
+ printf("toplam : %d",t);
+
+ getch();
+
+
+}

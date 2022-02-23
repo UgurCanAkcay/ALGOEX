@@ -1,0 +1,106 @@
+
+import java.util.*;
+
+public class TowerOfHanoi{
+
+    static Stack<Integer>[] towers;
+
+
+    public static void main (String[] argv)
+    {
+    // 3 disk
+    System.out.println ("3 Disk cozumu: ");
+	solveHanoi (2, 0, 1);
+
+     // 4 disk
+    System.out.println ("4 Disck cozumu: ");
+	solveHanoi (3, 0, 1);
+
+    // 5 disk
+        System.out.println ("5 Disk cozumu: ");
+	solveHanoi (4, 0, 1);
+    }
+
+    static void solveHanoi (int a, int b, int c)
+    {
+    // Yeni stack olusturma
+	towers = new Stack [3];
+	for (int i=0; i<3; i++) {
+	    towers[i] = new Stack<Integer>();
+	}
+
+    // Diskleri stacklere yerlestirmece
+	for (int i=a; i>=0; i--) {
+	    towers[0].add (i);
+	}
+
+	printTowers ();
+
+    // Ozyinelemeli yani Recursive cozum icin
+	solveHanoiRecursive (a, b, c);
+    }
+    
+
+    static void solveHanoiRecursive (int a, int b, int c)
+    {
+	if (a == 0) {
+	    move (0, b, c);
+	    return;
+	}
+	int i = other (b, c);
+	solveHanoiRecursive (a-1, b, i);   
+	move (a, b, c);                    
+	solveHanoiRecursive (a-1, i, c);   
+    }
+
+
+    static void move (int a, int b, int c)
+    {
+    // top diski cekme
+	int topVal = towers[b].pop();
+	towers[c].push (topVal);
+    System.out.println ( a + " i kule " + b + " den kule " + c + " ye hareket ettirdikten sonra");
+	printTowers ();
+    }
+
+
+    static int other (int b, int c)
+    {
+        // Kule ver-al
+        if ( (b == 0) && (c == 1) ) {
+            return 2;
+        }
+        else if ( (b == 1) && (c == 0) ) {
+            return 2;
+        }
+        else if ( (b == 1) && (c == 2) ) {
+            return 0;
+        }
+        else if ( (b == 2) && (c == 1) ) {
+            return 0;
+        }
+        else if ( (b == 0) && (c == 2) ) {
+            return 1;
+        }
+        else if ( (b == 2) && (c == 0) ) {
+            return 1;
+        }
+
+        return -1;
+    }
+
+
+    static void printTowers ()
+    {
+	for (int b=0; b<towers.length; b++) {
+	    System.out.print ("Tower " + b + ": ");
+	    if ( ! towers[b].isEmpty() ) {
+		for (Integer x: towers[b]) {
+		    System.out.print (" " + x);
+		}
+	    }
+	    System.out.println ();
+	}
+    }
+
+}
